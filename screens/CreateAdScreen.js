@@ -33,22 +33,22 @@ const CreateAdScreen = () => {
 
     const openCamera = () => {
         launchImageLibrary({quality:0.5},(fileobj) => {
-            //console.log(fileobj)
+        
             const uploadTask = storage().ref().child(`/item/${Date.now()}`).putFile(fileobj.uri)
-            // Listen for state changes, errors, and completion of the upload.
-            uploadTask.on('state_changed', // or 'state_changed'
+         
+            uploadTask.on('state_changed', 
             (snapshot) => {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             if(progress==100){alert("Đã tải ảnh lên thành công")}
             }, 
             (error) => {
-            // A full list of error codes is available at
+            
                 alert("Đã xảy ra lỗi")
            
             }, 
             () => {
-            // Upload completed successfully, now we can get the download URL
+            
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                 console.log(downloadURL)
                 setImage(downloadURL)
